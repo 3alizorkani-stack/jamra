@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بودكاست جمرة | JAMRA</title>
+    <style>
+        :root {
+            /* لوحة ألوان الصحراء والبر */
+            --sand-dark: #8b6b4a;
+            --sand-light: #c2a379;
+            --fire-orange: #ff4500;
+            --deep-black: #1a1108; /* أسود بلمحة بنية */
+        }
+
+        body {
+            /* تأثير خلفية رملية محببة */
+            background-color: var(--sand-light);
+            background-image: 
+                radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.3) 100%),
+                url('https://www.transparenttextures.com/patterns/p6.png'); /* ملمس الرمال */
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 8vh;
+            font-family: 'Cairo', sans-serif; /* يفضل استخدام خط Cairo إذا توفر */
+            overflow: hidden;
+        }
+
+        /* --- الجمرة المحسنة (لوجو هندسي حاد) --- */
+        .ember-wrapper {
+            position: relative;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        .ember-rock {
+            width: 90px;
+            height: 90px;
+            background: #2b2b2b;
+            /* شكل صخري حاد غير منتظم */
+            clip-path: polygon(30% 0%, 70% 10%, 100% 40%, 80% 90%, 20% 100%, 0% 60%, 10% 20%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255,255,255,0.05);
+            z-index: 2;
+        }
+
+        /* توهج الشقوق (Cracks) */
+        .ember-rock::before {
+            content: '';
+            position: absolute;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle, var(--fire-orange) 10%, transparent 70%);
+            animation: glow-pulse 2s infinite alternate;
+        }
+
+        /* الهالة الضوئية حول الجمرة */
+        .ember-aura {
+            position: absolute;
+            width: 150px; height: 150px;
+            background: radial-gradient(circle, rgba(255,69,0,0.4) 0%, transparent 70%);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            filter: blur(20px);
+        }
+
+        /* --- تأثير الغبار والشرار --- */
+        .dust-container {
+            position: absolute;
+            width: 100%; height: 100%;
+            top: 0; left: 0;
+            pointer-events: none;
+        }
+
+        .dust {
+            position: absolute;
+            background: rgba(255, 69, 0, 0.6);
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: drift 8s infinite linear;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: var(--deep-black);
+            margin: 20px 0 0;
+            font-weight: 900;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .tagline {
+            color: #5d4831;
+            font-weight: bold;
+            letter-spacing: 3px;
+            font-size: 0.8rem;
+        }
+
+        /* --- الروابط (ستايل برّي خشبي) --- */
+        .links {
+            margin-top: 50px;
+            width: 280px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .link {
+            background: rgba(26, 17, 8, 0.9);
+            color: var(--sand-light);
+            text-align: center;
+            padding: 14px;
+            text-decoration: none;
+            font-weight: bold;
+            border-right: 4px solid var(--fire-orange);
+            transition: 0.4s;
+            letter-spacing: 1px;
+        }
+
+        .link:hover {
+            background: var(--fire-orange);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* --- الأنميشن --- */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes glow-pulse {
+            from { opacity: 0.4; }
+            to { opacity: 1; }
+        }
+
+        @keyframes drift {
+            0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) translateX(100px); opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="dust-container" id="dust"></div>
+
+    <div class="ember-wrapper">
+        <div class="ember-aura"></div>
+        <div class="ember-rock"></div>
+    </div>
+
+    <h1>جَمْرة</h1>
+    <div class="tagline">JAMRA PODCAST</div>
+
+    <div class="links">
+        <a href="#" class="link">YOUTUBE</a>
+        <a href="#" class="link">SPOTIFY</a>
+        <a href="#" class="link">INSTAGRAM</a>
+    </div>
+
+    <script>
+        // توليد شرارات عشوائية
+        const container = document.getElementById('dust');
+        for (let i = 0; i < 15; i++) {
+            const dust = document.createElement('div');
+            dust.className = 'dust';
+            dust.style.left = Math.random() * 100 + '%';
+            dust.style.width = dust.style.height = (Math.random() * 4 + 2) + 'px';
+            dust.style.animationDelay = Math.random() * 5 + 's';
+            container.appendChild(dust);
+        }
+    </script>
+
+</body>
+</html>
